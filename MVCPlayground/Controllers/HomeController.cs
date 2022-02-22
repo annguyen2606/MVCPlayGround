@@ -49,7 +49,11 @@ namespace MVCPlayground.Controllers
 
         public IActionResult EditItem(Item item)
         {
-            _items[_items.FindIndex(i => i.Id == item.Id)] = item;
+            var foundItem = _items.FirstOrDefault(i => i.Id == item.Id);
+            foundItem.Name = item.Name;
+            foundItem.Description = item.Description;
+            foundItem.Type = item.Type;
+
             _logger.LogInformation($"Item - [Id = {item.Id}] updated");
             return RedirectToAction("Index");
         }
